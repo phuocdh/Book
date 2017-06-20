@@ -1,0 +1,15 @@
+E:\Exercise\Books\Books\bin\Debug\Books.exe.config
+E:\Exercise\Books\Books\bin\Debug\Books.exe
+E:\Exercise\Books\Books\bin\Debug\Books.pdb
+E:\Exercise\Books\Books\bin\Debug\EntityFramework.dll
+E:\Exercise\Books\Books\bin\Debug\EntityFramework.SqlServer.dll
+E:\Exercise\Books\Books\bin\Debug\FastMember.dll
+E:\Exercise\Books\Books\bin\Debug\EntityFramework.xml
+E:\Exercise\Books\Books\bin\Debug\EntityFramework.SqlServer.xml
+E:\Exercise\Books\Books\obj\Debug\Books.Login.resources
+E:\Exercise\Books\Books\obj\Debug\Books.Main.resources
+E:\Exercise\Books\Books\obj\Debug\Books.Properties.Resources.resources
+E:\Exercise\Books\Books\obj\Debug\Books.csproj.GenerateResource.Cache
+E:\Exercise\Books\Books\obj\Debug\Books.exe
+E:\Exercise\Books\Books\obj\Debug\Books.pdb
+E:\Exercise\Books\Books\obj\Debug\Books.csprojResolveAssemblyReference.cache

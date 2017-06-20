@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BookModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BookEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Authors" EntityType="BookModel.Author" />
+    <EntitySet Name="Books" EntityType="BookModel.Book" />
+    <EntitySet Name="Categories" EntityType="BookModel.Category" />
+    <EntitySet Name="Roles" EntityType="BookModel.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="BookModel.sysdiagram" />
+    <EntitySet Name="Users" EntityType="BookModel.User" />
+    <AssociationSet Name="FK_Book_Author" Association="BookModel.FK_Book_Author">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Book_Category" Association="BookModel.FK_Book_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role" Association="BookModel.FK_User_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <FunctionImport Name="spGetAuthor" ReturnType="Collection(BookModel.spGetAuthor_Result)" />
+    <FunctionImport Name="spGetBooks" ReturnType="Collection(BookModel.spGetBooks_Result)" />
+    <FunctionImport Name="spGetCategory" ReturnType="Collection(BookModel.spGetCategory_Result)" />
+  </EntityContainer>
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Title" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Cover" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreateTime" Type="DateTime" Precision="0" />
+    <Property Name="LastUpdateTime" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Books" Relationship="BookModel.FK_Book_Author" FromRole="Author" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Title" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Author" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Cover" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Publisher" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="CategoryId" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Year" Type="Int32" />
+    <Property Name="CreateTime" Type="DateTime" Precision="0" />
+    <Property Name="LastUpdateTime" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Author1" Relationship="BookModel.FK_Book_Author" FromRole="Book" ToRole="Author" />
+    <NavigationProperty Name="Category" Relationship="BookModel.FK_Book_Category" FromRole="Book" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Title" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="CreateTime" Type="DateTime" Precision="0" />
+    <Property Name="LastUpdateTime" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Books" Relationship="BookModel.FK_Book_Category" FromRole="Category" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="RoleType" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="BookModel.FK_User_Role" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Role" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Role1" Relationship="BookModel.FK_User_Role" FromRole="User" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_Book_Author">
+    <End Role="Author" Type="BookModel.Author" Multiplicity="1" />
+    <End Role="Book" Type="BookModel.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="Author" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Book_Category">
+    <End Role="Category" Type="BookModel.Category" Multiplicity="0..1" />
+    <End Role="Book" Type="BookModel.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role">
+    <End Role="Role" Type="BookModel.Role" Multiplicity="0..1" />
+    <End Role="User" Type="BookModel.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="spGetAuthor_Result">
+    <Property Type="String" Name="Id" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="String" Name="Title" Nullable="true" />
+    <Property Type="DateTime" Name="CreateTime" Nullable="true" />
+    <Property Type="DateTime" Name="LastUpdateTime" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spGetBooks_Result">
+    <Property Type="String" Name="Id" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Title" Nullable="true" />
+    <Property Type="String" Name="Cover" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="Int32" Name="Year" Nullable="true" />
+    <Property Type="DateTime" Name="CreateTime" Nullable="true" />
+    <Property Type="DateTime" Name="LastUpdateTime" Nullable="true" />
+    <Property Type="String" Name="Author" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="CategoryId" Nullable="true" MaxLength="10" />
+  </ComplexType>
+  <ComplexType Name="spGetCategory_Result">
+    <Property Type="String" Name="Id" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Title" Nullable="true" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="DateTime" Name="CreateTime" Nullable="true" />
+    <Property Type="DateTime" Name="LastUpdateTime" Nullable="true" />
+  </ComplexType>
+</Schema>
